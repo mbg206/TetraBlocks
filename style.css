@@ -1,0 +1,42 @@
+body {
+    background-image: linear-gradient(purple, indigo);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'Encode Sans SC', sans-serif;
+    color: white;
+    text-align: center;
+    user-select: none;
+}
+
+#menuTitle {
+    font-size: 10vh;
+    margin-bottom: 25vh;
+}
+.menuSection {
+    position: absolute;
+    top: calc(19vh + 64px);
+}
+#aiMenu, #challengeMenu {
+    display: none;
+}
+.menuItem {
+    text-align: right;
+    width: calc(25vw + 512px);
+    position: relative;
+    right: 256px;
+    font-size: 7vh;
+    padding: 1vh;
+    margin-bottom: 1vh;
+    transition: right 100ms ease, padding 100ms ease, opacity 100ms ease;
+}
+.menuItem:hover {
+    right: 128px;
+}
+.red {background-color: red;}
+.green {background-color: green;}
+.blue {background-color: blue;}
+.yellow {
+    background-color: yellow;
+    color: black;
+}
