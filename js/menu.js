@@ -11,6 +11,10 @@ document.getElementById("b_challengeback").onclick = function(){
     changeMenu("challengeMenu", "mainMenu");
 }
 
+document.getElementById("b_solo").onclick = function(){
+    window.location.href = "game1p.html";
+}
+
 function changeMenu(from, to) {
     document.getElementById(from).style.display = 'none';
     document.getElementById(to).style.display = 'block';
