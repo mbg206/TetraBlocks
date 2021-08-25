@@ -314,6 +314,17 @@ class Game {
         let ctx = this.canvas.getContext('2d');
         this.canvas.width = this.canvas.width;
 
+		// get ghost piece pos
+		let tempPos = this.piecePos[1];
+		
+		do {
+            this.piecePos[1] += 1;
+        } while (this.isOverlapping() == false);
+        this.piecePos[1] -= 1;
+		let ghostPiecePos = this.piecePos;
+		
+		this.piecePos[1] = tempPos;
+		
         // draw board
         for (var y = 18; y < 40; y++) {
             
@@ -329,7 +340,18 @@ class Game {
                     }
                     item = pieces[this.currentPiece][this.piecePos[2]][y - this.piecePos[1]][x - this.piecePos[0]]
                 } catch(e) {
-                    item = this.board[y][x];
+                    // ghost piece
+                    try {
+						if (x - ghostPiecePos[0] < 0 || x - ghostPiecePos[0] > 3) {
+							throw Error;
+						}
+						else if (pieces[this.currentPiece][ghostPiecePos[2]][y - ghostPiecePos[1]][x - ghostPiecePos[0]] == 0) {
+							throw Error;
+						}
+						item = pieces[this.currentPiece][ghostPiecePos[2]][y - ghostPiecePos[1]][x - ghostPiecePos[0]]
+					} catch(e) {
+						item = this.board[y][x];
+					}
                 }
                 
                 let layer = 0;
