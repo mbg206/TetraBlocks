@@ -39,10 +39,44 @@ class Game {
 
         this.piecePos[2] += 1;
         if (this.piecePos[2] == 4) {
-            this.piecePos[2] = 0
+            this.piecePos[2] = 0;
         }
         if (this.isOverlapping()) {
-            this.rotateCcw();
+            
+            // srs
+            for (var i = 0; i < srs.length; i++) {
+                if (srs[i][0].includes(this.currentPiece)) {
+                    var initialPos = this.piecePos;
+                    let srsPositions = srs[i][1][this.piecePos[2]];
+
+                    for (var k = 0; k < srsPositions.length; k++) {
+                        this.piecePos = initialPos;
+                        this.piecePos[0] += srsPositions[k][0]
+                        this.piecePos[1] += srsPositions[k][1]
+
+                        if (!this.isOverlapping()) {
+                            break;
+                        }
+                    }
+                    if (this.isOverlapping()) {
+                        this.piecePos = initialPos;
+
+                        this.piecePos[2] -= 1;
+                        if (this.piecePos[2] == -1) {
+                            this.piecePos[2] = 3;
+                        }
+
+                        playAudio('rotatefail');
+                    }
+                    else {
+                        playAudio('rotate');
+                    }
+                }
+            }
+
+        }
+        else {
+            playAudio('rotate');
         }
 
         this.frame();
@@ -54,10 +88,45 @@ class Game {
 
         this.piecePos[2] -= 1;
         if (this.piecePos[2] == -1) {
-            this.piecePos[2] = 3
+            this.piecePos[2] = 3;
         }
         if (this.isOverlapping()) {
-            this.rotateCw();
+            
+            // srs
+            for (var i = 0; i < srs.length; i++) {
+                if (srs[i][0].includes(this.currentPiece)) {
+                    var initialPos = this.piecePos;
+                    let srsPositions = srs[i][1][this.piecePos[2] + 4];
+
+                    for (var k = 0; k < srsPositions.length; k++) {
+                        this.piecePos = initialPos;
+                        this.piecePos[0] += srsPositions[k][0]
+                        this.piecePos[1] += srsPositions[k][1]
+
+                        if (!this.isOverlapping()) {
+                            break;
+                        }
+                    }
+                    
+                    if (this.isOverlapping()) {
+                        this.piecePos = initialPos;
+
+                        this.piecePos[2] += 1;
+                        if (this.piecePos[2] == 4) {
+                            this.piecePos[2] = 0;
+                        }
+
+                        playAudio('rotatefail');
+                    }
+                    else {
+                        playAudio('rotate');
+                    }
+                }
+            }
+
+        }
+        else {
+            playAudio('rotate');
         }
 
         this.frame();
